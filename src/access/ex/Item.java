@@ -15,7 +15,7 @@ public class Item {
         return name;
     }
 
-    public int getSum(){
+    public int getTotalPrice(){
         return price * quantity;
     }
 }
