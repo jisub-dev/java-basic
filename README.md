@@ -237,4 +237,6 @@ public class ClassC extends ClassB{
 }
 ```
 * 생성자에서 this를 여러번 사용해서 넘기더라도 한번은 첫줄에 super가 호출되어야 한다
+* 부모 클래스에 final이 붙으면 상속이 불가능함
+* 부모의 메서드가 final이면 오버라이딩이 불가능함
 * 
