@@ -239,4 +239,49 @@ public class ClassC extends ClassB{
 * 생성자에서 this를 여러번 사용해서 넘기더라도 한번은 첫줄에 super가 호출되어야 한다
 * 부모 클래스에 final이 붙으면 상속이 불가능함
 * 부모의 메서드가 final이면 오버라이딩이 불가능함
+
+# Section 10. 다형성
+* 부모 타입은 자식 타입을 담을 수 있다 (자식은 부모 타입을 담을 순 없음)
+```java
+        Parent poly = new Child();
+```
+* 부모 타입에서 자식의 메서드를 호출할 순 없다
+* 부모 타입에 손자 타입도 담을 수 있다 (부모는 자기 자신을 포함해 하위 타입들을 참조 가능함)
+* 변수의 타입에 해당하는 클래스 부터 찾음(타입이 부모 -> 부모의 메서드 부터 호출, **없으면 자식으로 가지 않고 컴파일 에러 발생**)
+* 자식에게 부모의 타입을 강제로 대입(자식 타입의 기능을 사용하기 위함) -> 다운캐스팅 필요
+```java
+//다운캐스팅 (부모 타입 -> 자식 타입)
+Child child = (Child) poly;
+```
+* 자바는 캐스팅을 해도 값을 복사만 한다
+* 현재 타입을 부모 타입으로 변경 -> 업캐스팅
+* 업캐스팅은 생략한다 -> 많이 하기 때문에 공식적으로 생략 권장
+* 런타임에러 -> 프로그램을 실행하는 도중에 발생하는 오류(안좋은 오류)
+* 컴파일에러 -> 프로그램 실행전 발생하는 오류(좋은 오류)
+* 다운캐스팅을 자동으로 하지 않는 이유
+```java
+Parent parent2 = new Parent();
+Child child2 = (Child) parent2; //런타임 오류 - ClassCastException
+```
+오류가 발생하는 이유는 parent2의 주소에는 자식 타입이 없기 때문에 Child 자체를 사용할 수 없기 때문이다
+* 다운캐스팅을 수행하기 전
+  -> instanceof를 사용해서 원하는 타입으로 변경이 가능한지 확인하기
+* new {~를} instanceof {~에 담을 수 있냐}
+```java
+new Child() instanceof Parent
+Parent p = new Child() //부모는 자식을 담을 수 있다. true
+new Parent() instanceof Child
+Child c = new Parent() //자식은 부모를 담을 수 없다. false
+```
+
+* 자바16부터 instanceof를 사용하면서 동시에 변수를 선언할 수 있음
+```java
+if(parent instanceof Child){
+    Child child = (Child) parent;
+```
+위 코드를 아래처럼 간략하게 만들 수 있다
+```java
+if(parent instanceof Child child){
+```
+* **오버라이딩 된 메서드는 항상 우선권을 가진다**
 * 
