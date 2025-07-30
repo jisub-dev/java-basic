@@ -204,7 +204,7 @@ final Data data = new Data();
 * 코드는 제약이 중요함   
 -> final과 같이 처음에 코딩할 때 제약을 걸어놔야 추후 의도를 파악할 수 있다.
 
-# Section 9. 상속
+# Section 10. 상속
 * 부모클래스는 자식클래스가 누군지 모름   
 -> 자식클래스만 부모클래스의 기능을 상속받음
 
@@ -240,7 +240,7 @@ public class ClassC extends ClassB{
 * 부모 클래스에 final이 붙으면 상속이 불가능함
 * 부모의 메서드가 final이면 오버라이딩이 불가능함
 
-# Section 10. 다형성
+# Section 11. 다형성
 * 부모 타입은 자식 타입을 담을 수 있다 (자식은 부모 타입을 담을 순 없음)
 ```java
         Parent poly = new Child();
@@ -284,4 +284,69 @@ if(parent instanceof Child){
 if(parent instanceof Child child){
 ```
 * **오버라이딩 된 메서드는 항상 우선권을 가진다**
+
+# Section 12. 다형성2
+* 다형적 참조: 각각 자식을 부모에 담아서 타입이 다른 자식을 다양하게 참조할 수 있다
+* 메서드 오버라이딩: 하나의 부모지만 각각 자식에 맞는 메서드를 호출할 수 있다
+* 아래와 같이 배열을 만들 수 있음
+```java
+Animal[] animalArr = new Animal[]{dog, cat, caw};
+Animal[] animalArr = {dog, cat, caw}
+```
+* Inline Variable : 기존 변수 선언을 합침
+기존
+```java
+Dog dog = new Dog();
+Cat cat = new Cat();
+Caw caw = new Caw();
+
+Animal[] animalArr = {dog, cat, caw};
+```
+위와 같이 변수 선언부와 나뉘었다면, 각 dog, cat, caw에 커서를 두고 ctrl + commend + N 을 누르면 아래와 같이 합쳐진다
+```java
+Animal[] animalArr = {new Dog(), new Cat(), new Caw()};
+```
+
+* Extract Method : 드래그 한 영역을 메서드로 뽑아냄
+-> option + commend + M
+* 추상 클래스 : 부모 클래스는 제공하지만 실제 생성되면 안되는 클래스 
+```java
+abstract class AbstractAnimal{...}
+```
+처럼 사용할 수 있다
+* 추상 메서드 : 부모 클래스를 상속 받는 자식 클래스가 반드시 오버라이딩을 해야하는 메서드를 부모 클래스에 정의하는 것
+```java
+public abstract void sound();
+```
+처럼 사용할 수 있다
+* 인터페이스
+```java
+public interface InterfaceAnimal {
+public abstract void sound();
+public abstract void move();
+}
+```
+* 만약 추상클래스를 상속 받는 자식클래스도 추상클래스로 만든다면 오버라이딩 하지 않아도 된다
+* 인터페이스는 public abstract 키워드를 생략할 수 있다 (생략이 권장됨)
+* 인터페이스의 멤버 변수는 public, static, final이 기본적으로 내재되어있다
+```java
+public interface InterfaceAnimal {
+public static final double MY_PI = 3.14;
+}
+```
+위 코드를 아래 코드로 생략할 수 있다 (생략이 권장됨)
+```java
+public interface InterfaceAnimal{
+    double MY_PI = 3.14; //상수
+}
+```
+
+* UML에서 클래스 상속 관계 -> 실선, 인터페이스 구현(상속) -> 점선
+* 인터페이스를 사용해야하는 이유
+  1. 인터페이스의 메서드를 반드시 구현하라는 제약을 생성한다
+  2. 부모를 여러명 두는 다중 구현(다중 상속)이 가능하다
+* 다이아몬드 문제 : 자바가 다중상속을 지원하지 않는 이유는 어떤 부모를 사용해야할지 애매한 문제가 생긱기 때문이다
+* 하지만 인터페이스는 자식이 무조건 오버라이딩하므로 다중 구현(상속)을 지원한다
+
+# Section 13. 다형성3
 * 
